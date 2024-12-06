@@ -14,7 +14,7 @@ def solution():
 
   map_matrix = []
 
-  with open(RELATIVE_PATH, 'r', encoding='utf-8') as f:
+  with open(RELATIVE_PATH_TEST, 'r', encoding='utf-8') as f:
     for line in f.readlines() :
       matrix_line = []
       for letter in line:
