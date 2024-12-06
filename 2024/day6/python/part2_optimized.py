@@ -19,25 +19,28 @@ def solution():
     for line in f.readlines() :
       map_matrix.append(line[:-1] if line[-1] == '\n' else line)
 
-  print("\n".join(map(str, map_matrix)))
+  # print("\n".join(map(str, map_matrix)))
 
   lines = len(map_matrix)
   columns = len(map_matrix[0])
 
   counter = 0
 
+  initial_dir = '^'
+  initial_pos = get_init_pos(map_matrix, initial_dir)
+
   for i in range(lines):
     for j in range(columns):
-      print(f"{(i, j)} over {(lines, columns)}")
+      # print(f"{(i, j)} over {(lines, columns)}")
       if map_matrix[i][j] != '#' and map_matrix[i][j] != '^':
         new_map = copy.deepcopy(map_matrix)
         new_map[i] = new_map[i][:j] + '#' + new_map[i][j + 1:]
 
-        counter += process_route(new_map)
+        counter += process_route(new_map, initial_pos)
 
   return counter
 
-def process_route(mapp):
+def process_route(mapp, init_pos):
   """Process the route whithin the map"""
 
   symbol_mapper = {
@@ -48,7 +51,7 @@ def process_route(mapp):
   }
 
   current_dir = '^'
-  current_x, current_y,  = get_init_pos(mapp, current_dir)
+  current_x, current_y  = init_pos
 
   visited_walls = []
 
@@ -84,8 +87,6 @@ def process_route(mapp):
 
       visited_walls.append(wall)
       current_dir = symbol_mapper[current_dir]
-
-
 
 def get_init_pos(mapp, symbol):
   """Returns the beginning position"""
